@@ -1,29 +1,51 @@
-import { Link, useRouter } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { Button, Text } from "react-native";
+import { Link, router } from "expo-router";
+import { Button, StyleSheet, Text, View } from "react-native";
 
-export default function App() {
-  const router = useRouter();
-
-  const handleLinkWithParams = () => {
-    router.push({
-      pathname: "/details",
-      params: {
-        name: "fulano",
-        age: 50,
-      },
-    });
-  };
-
+export default function Page() {
   return (
-    <>
-      <Text>
-        Example link (without params):
-        <Link href="/details"> --Click-me for Details-- </Link>
-      </Text>
+    <View style={styles.container}>
+      <View style={styles.main}>
+        <Text style={styles.title}>Home Screen! Index</Text>
 
-      <Button onPress={handleLinkWithParams} title="with args" />
-      <StatusBar style="auto" />
-    </>
+        <Text style={styles.text}>Navigate with path params:</Text>
+
+        <Link href="/users/123">/user/123</Link>
+        <Link href="/users/124">/user/124</Link>
+        <Link href="/users/126">/user/126</Link>
+
+        <Text style={styles.text}>Navigate with query params:</Text>
+
+        <Button
+          onPress={() => {
+            router.push({
+              pathname: "/car",
+              params: { id: "123" },
+            });
+          }}
+          title="/car?id=123)"
+        />
+      </View>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    padding: 24,
+  },
+  main: {
+    flex: 1,
+    justifyContent: "center",
+    maxWidth: 960,
+    marginHorizontal: "auto",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  text: {
+    marginTop: 16,
+  },
+});
